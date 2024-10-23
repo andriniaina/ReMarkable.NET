@@ -1,10 +1,12 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using ReMarkable.NET.Unix.Driver.Display.Framebuffer;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats;
 using SixLabors.ImageSharp.PixelFormats;
+using ReMarkable.NET.Graphics.BackwardCompatibility;
 
 namespace ReMarkable.NET.Graphics
 {
@@ -47,6 +49,16 @@ namespace ReMarkable.NET.Graphics
         {
             var image = new Image<Rgb24>(configuration, _area.Width, _area.Height);
             return DecodeIntoImage(stream, image);
+        }
+
+        public Image<TPixel> Decode<TPixel>(Configuration configuration, Stream stream, CancellationToken cancellationToken) where TPixel : unmanaged, IPixel<TPixel>
+        {
+            throw new NotImplementedException();
+        }
+
+        public Image Decode(Configuration configuration, Stream stream, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
         }
 
         /// <inheritdoc />

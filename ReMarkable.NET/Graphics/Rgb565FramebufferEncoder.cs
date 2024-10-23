@@ -1,10 +1,12 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using ReMarkable.NET.Unix.Driver.Display.Framebuffer;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats;
 using SixLabors.ImageSharp.PixelFormats;
+using ReMarkable.NET.Graphics.BackwardCompatibility;
 
 namespace ReMarkable.NET.Graphics
 {
@@ -85,6 +87,11 @@ namespace ReMarkable.NET.Graphics
                 Buffer.BlockCopy(rgb565Buf, 0, buf, 0, buf.Length);
                 await stream.WriteAsync(buf, 0, buf.Length);
             }
+        }
+
+        public Task EncodeAsync<TPixel>(Image<TPixel> image, Stream stream, CancellationToken cancellationToken) where TPixel : unmanaged, IPixel<TPixel>
+        {
+            throw new NotImplementedException();
         }
     }
 }
